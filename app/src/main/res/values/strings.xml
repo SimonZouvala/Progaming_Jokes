@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">Safe Joke</string>
+    <string name="app_name">Programing jokes</string>
+    <string name="addNewJoke">New joke</string>
+    <string name="clear_jokes">Delete jokes</string>
+    <string name="hint_setup">Joke setup</string>
+    <string name="hint_punchline">Joke punchline</string>
+    <string name="save_new_joke">Save joke</string>
+    <string name="generate_joke">Generate</string>
+    <string name="empty_not_saved">Joke not save</string>
 </resources>
