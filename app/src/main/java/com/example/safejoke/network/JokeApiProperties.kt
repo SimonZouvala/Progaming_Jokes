@@ -11,7 +11,7 @@ data class JokeApiProperties(
 )
 
 
-fun DatabaseJoke.asDomainModel(): Joke {
+fun JokeApiProperties.asDomainModel(): Joke {
     return Joke(
         id = this.id,
         setup = this.setup,

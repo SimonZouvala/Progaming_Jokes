@@ -7,24 +7,29 @@ import com.example.safejoke.database.DatabaseJoke
 import com.example.safejoke.database.JokeDao
 import com.example.safejoke.database.asDomainModel
 import com.example.safejoke.domain.Joke
-import com.example.safejoke.network.JokeApiService
+import com.example.safejoke.network.JokeApi
+import com.example.safejoke.network.asDomainModel
 
 
-class JokesRepository(private val jokeDao: JokeDao, private val jokeApiService: JokeApiService) {
+class JokesRepository(private val jokeDao: JokeDao) {
 
     val allJokes: LiveData<List<Joke>> =Transformations.map(jokeDao.getJokes()){
         it.asDomainModel()}
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun insert(databaseJoke: DatabaseJoke){
-        jokeDao.insertJoke(databaseJoke)
+    suspend fun insert(joke: Joke){
+        jokeDao.insertJoke(DatabaseJoke(joke.id,joke.setup,joke.punchline))
     }
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun delete(databaseJoke: DatabaseJoke){
-        jokeDao.deleteJoke(databaseJoke)
+    suspend fun delete(joke: Joke){
+        jokeDao.deleteJoke(DatabaseJoke(joke.id,joke.setup,joke.punchline))
+    }
+
+    suspend fun getNewJoke(): Joke{
+        return JokeApi.jokeNetwork.getProperties().asDomainModel()
     }
 
 

@@ -36,6 +36,6 @@ object JokeApi {
         .baseUrl(BASE_URL)
         .build()
 
-    val retrofitService : JokeApiService by lazy { retrofit.create(JokeApiService::class.java) }
+    val jokeNetwork : JokeApiService by lazy { retrofit.create(JokeApiService::class.java) }
 
 }
