@@ -1,16 +1,14 @@
 package com.example.safejoke.model
 
-import android.app.Application
-import androidx.lifecycle.*
-import com.example.safejoke.database.getDatabase
-
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.safejoke.domain.Joke
 import com.example.safejoke.repository.JokeRepository
 import kotlinx.coroutines.launch
 
-class JokeViewModel(application: Application) : AndroidViewModel(application) {
+class JokeViewModel(private val repository: JokeRepository) : ViewModel() {
 
-    val repository = JokeRepository(getDatabase(application))
 
     val allJokes: LiveData<List<Joke>> = repository.allJokes
 
@@ -20,6 +18,14 @@ class JokeViewModel(application: Application) : AndroidViewModel(application) {
 
     fun delete() = viewModelScope.launch {
         repository.delete()
+    }
+
+    suspend fun generateJoke(): Joke {
+        var newJoke: Joke =  Joke("","")
+        viewModelScope.launch {
+            newJoke = repository.getNewJoke()
+        }
+        return newJoke
     }
 
 }

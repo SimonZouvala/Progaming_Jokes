@@ -20,7 +20,7 @@ fun getDatabase(context: Context): JokeRoomDatabase {
         if (!::INSTANCE.isInitialized) {
             INSTANCE = Room.databaseBuilder(context.applicationContext,
                 JokeRoomDatabase::class.java,
-                "videos").build()
+                "jokes").build()
         }
     }
     return INSTANCE

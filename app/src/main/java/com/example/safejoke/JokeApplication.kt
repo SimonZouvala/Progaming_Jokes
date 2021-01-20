@@ -12,7 +12,7 @@ class JokeApplication : Application() {
 
 
     val database by lazy { getDatabase(this) }
-    val repository by lazy { JokeRepository(database) }
+    val repository by lazy { JokeRepository(database.jokeDatabaseDao) }
 }
 
 

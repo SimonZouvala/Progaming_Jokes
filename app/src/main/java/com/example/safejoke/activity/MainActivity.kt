@@ -1,5 +1,6 @@
 package com.example.safejoke.activity
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -21,24 +22,21 @@ import com.example.safejoke.model.JokeViewModelFactory
 import kotlinx.coroutines.launch
 
 
-
-
-
 class MainActivity : AppCompatActivity() {
 
     private val newJokeActivityRequestCode = 1
 
     private val jokeViewModel: JokeViewModel by viewModels {
-        JokeViewModelFactory((application as JokeApplication))
+        JokeViewModelFactory((application as JokeApplication).repository)
     }
     private lateinit var binding: ActivityMainBinding
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        setContentView(binding.root)
-        binding.lifecycleOwner = this
+//        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        setContentView(R.layout.activity_main)
+//        binding.lifecycleOwner = this
 
 
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
@@ -57,6 +55,10 @@ class MainActivity : AppCompatActivity() {
             startActivityForResult(intent, newJokeActivityRequestCode)
         }
 
+        val deleteButton = findViewById<Button>(R.id.clear_jokes)
+        deleteButton.setOnClickListener{
+            clearJokes()
+        }
 
 
     }
@@ -68,12 +70,15 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == newJokeActivityRequestCode && resultCode == RESULT_OK) {
-            data?.getStringExtra(NewJokeActivity.EXTRA_REPLY)?.let { newJoke ->
+        if (requestCode == newJokeActivityRequestCode && resultCode == Activity.RESULT_OK) {
+            data?.getStringArrayListExtra(NewJokeActivity.EXTRA_REPLY)?.let { newJoke ->
                 val joke = Joke(newJoke.get(0).toString(), newJoke.get(1).toString())
-                lifecycleScope.launch {
-                    jokeViewModel.repository.insert(joke)
-                }
+//                Toast.makeText(
+//                    applicationContext,
+//                    joke.setup +":"+ joke.punchline,
+//                    Toast.LENGTH_LONG
+//                ).show()
+                jokeViewModel.insert(joke)
             }
         } else {
             Toast.makeText(

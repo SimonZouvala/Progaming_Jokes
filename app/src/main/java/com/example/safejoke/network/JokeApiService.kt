@@ -15,7 +15,7 @@ private const val BASE_URL = "https://official-joke-api.appspot.com/jokes/progra
 interface JokeApiService {
 
     @GET("random")
-    suspend fun getProperties(): JokeApiProperties
+    suspend fun getProperties(): List<JokeApiProperties>
 }
 
 object JokeApi {
@@ -36,6 +36,6 @@ object JokeApi {
         .baseUrl(BASE_URL)
         .build()
 
-    val jokeNetwork: JokeApiService by lazy { retrofit.create(JokeApiService::class.java) }
+    val jokeNetwork = retrofit.create(JokeApiService::class.java)
 
 }

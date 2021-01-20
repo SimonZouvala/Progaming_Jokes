@@ -18,7 +18,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/gray_light"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:text="@{joke.setup}"/>
 
         <TextView
             android:id="@+id/text_punchline"
@@ -26,6 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/gray"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:text="@{joke.punchline}"/>
     </LinearLayout>
 </layout>
