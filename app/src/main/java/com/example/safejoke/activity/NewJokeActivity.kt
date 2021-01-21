@@ -6,13 +6,16 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import com.example.safejoke.JokeApplication
 import com.example.safejoke.R
 import com.example.safejoke.databinding.ActivityMainBinding
+import com.example.safejoke.databinding.ActivityNewjokeBinding
 import com.example.safejoke.domain.Joke
 import com.example.safejoke.model.JokeViewModel
 import com.example.safejoke.model.JokeViewModelFactory
@@ -22,45 +25,56 @@ class NewJokeActivity : AppCompatActivity() {
 
     private lateinit var editSetupView: EditText
     private lateinit var editPunchlineView: EditText
-    private var newJoke: Joke = Joke("","")
+//    private val newJoke: Joke = Joke("","")
+
+    private var joke: Joke = (Joke("", ""))
 
     private val newViewModel: JokeViewModel by viewModels {
         JokeViewModelFactory((application as JokeApplication).repository)
     }
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityNewjokeBinding
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_newjoke)
-        setContentView(R.layout.activity_newjoke)
+//        setContentView(R.layout.activity_newjoke)
+        setContentView(binding.root)
 
-        binding.lifecycleOwner = this
 
-        editSetupView = findViewById(R.id.editSetup)
-        editPunchlineView = findViewById(R.id.editPunchline)
+//        editSetupView = findViewById(R.id.editSetup)
+//        editPunchlineView = findViewById(R.id.editPunchline)
 
-        val buttonGenerate = findViewById<Button>(R.id.generate_joke)
-        buttonGenerate.setOnClickListener {
+//        val buttonGenerate = findViewById<Button>(R.id.generate_joke)
+        binding.joke = joke
+        var newJoke = Joke("", "")
+        binding.generateJoke.setOnClickListener {
 
             lifecycleScope.launch {
                 newJoke = getJoke()
+                binding.apply {
+                    editSetup.setText(newJoke.setup)
+                    editPunchline.setText(newJoke.punchline)
+                    invalidateAll()
+                }
             }
-            binding.apply{
-                editSetupView.setText(newJoke.setup)
-                editPunchlineView.setText(newJoke.punchline)
-            }
+
             setResult(Activity.RESULT_OK)
+            Toast.makeText(
+                applicationContext,
+                R.string.joke_was_generated,
+                Toast.LENGTH_LONG
+            ).show()
         }
 
-        val buttonSafe = findViewById<Button>(R.id.safe_joke_button)
-        buttonSafe.setOnClickListener {
+//        val buttonSafe = findViewById<Button>(R.id.safe_joke_button)
+        binding.safeJokeButton.setOnClickListener {
             val replyIntent = Intent()
-            if (TextUtils.isEmpty(editSetupView.text) || TextUtils.isEmpty(editPunchlineView.text)) {
+            if (TextUtils.isEmpty(binding.editSetup.text) || TextUtils.isEmpty(binding.editPunchline.text)) {
                 setResult(Activity.RESULT_CANCELED, replyIntent)
             } else {
-                val jokeSetup = editSetupView.text.toString()
-                val jokePunchline = editPunchlineView.text.toString()
+                val jokeSetup = binding.editSetup.text.toString()
+                val jokePunchline = binding.editPunchline.text.toString()
                 replyIntent.putStringArrayListExtra(
                     EXTRA_REPLY,
                     arrayListOf(jokeSetup, jokePunchline)

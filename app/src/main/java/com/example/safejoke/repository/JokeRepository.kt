@@ -12,6 +12,7 @@ import com.example.safejoke.database.asDomainModel
 import com.example.safejoke.domain.Joke
 import com.example.safejoke.domain.asDatabaseModel
 import com.example.safejoke.network.JokeApi
+import com.example.safejoke.network.JokeApiProperties
 import com.example.safejoke.network.asDomainModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -44,11 +45,13 @@ class JokeRepository(private val jokeDatabaseDao: JokeDatabaseDao) {
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun getNewJoke(): Joke {
-        val newJoke = JokeApi.jokeNetwork.getProperties().get(0).asDomainModel()
-        println(" TOTO JE VELIKOST Z NETU")
-        println(newJoke.punchline.toString())
-        return newJoke
+        var newJoke: JokeApiProperties
+        withContext(Dispatchers.IO){
+            newJoke = JokeApi.jokeNetwork.getProperties().get(0)
+        }
+        return Joke(newJoke.setup,newJoke.punchline)
     }
+
 
 
 }

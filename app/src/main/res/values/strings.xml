@@ -7,4 +7,6 @@
     <string name="save_new_joke">Save joke</string>
     <string name="generate_joke">Generate</string>
     <string name="empty_not_saved">Joke not save</string>
+    <string name="joke_was_generated">Joke loading from internet</string>
+    <string name="splashScreen_text">Programing jokes</string>
 </resources>

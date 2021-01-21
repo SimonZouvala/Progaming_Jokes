@@ -4,8 +4,8 @@ import androidx.room.PrimaryKey
 import com.example.safejoke.database.DatabaseJoke
 
 data class Joke(
-    val setup: String,
-    val punchline: String
+    var setup: String,
+    var punchline: String
 )
 
 
