@@ -17,7 +17,9 @@ import com.example.safejoke.network.asDomainModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-
+/**
+ * Repository for fetching joke from the network and get joke from store
+ */
 class JokeRepository(private val jokeDatabaseDao: JokeDatabaseDao) {
 
     val allJokes: LiveData<List<Joke>> =

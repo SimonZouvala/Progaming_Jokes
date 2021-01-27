@@ -5,6 +5,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.safejoke.domain.Joke
 
+/**
+ * Database entity, that represent Joke as setup and punchline
+ */
 @Entity(primaryKeys = arrayOf("setup", "punchline"))
 data class DatabaseJoke constructor(
     val setup: String,
@@ -14,7 +17,7 @@ data class DatabaseJoke constructor(
 
 
 /**
- * Map DatabaseVideos to domain entities
+ * Map DatabaseJoke to domain entities
  */
 fun List<DatabaseJoke>.asDomainModel(): List<Joke> {
     return map {

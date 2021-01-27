@@ -7,6 +7,10 @@
         <variable
             name="joke"
             type="com.example.safejoke.domain.Joke" />
+
+        <variable
+            name="viewModel"
+            type="com.example.safejoke.model.JokeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

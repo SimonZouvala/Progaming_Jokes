@@ -73,11 +73,6 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == newJokeActivityRequestCode && resultCode == Activity.RESULT_OK) {
             data?.getStringArrayListExtra(NewJokeActivity.EXTRA_REPLY)?.let { newJoke ->
                 val joke = Joke(newJoke.get(0).toString(), newJoke.get(1).toString())
-//                Toast.makeText(
-//                    applicationContext,
-//                    joke.setup +":"+ joke.punchline,
-//                    Toast.LENGTH_LONG
-//                ).show()
                 jokeViewModel.insert(joke)
             }
         } else {

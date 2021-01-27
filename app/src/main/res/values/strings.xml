@@ -9,4 +9,5 @@
     <string name="empty_not_saved">Joke not save</string>
     <string name="joke_was_generated">Joke loading from internet</string>
     <string name="splashScreen_text">Programing jokes</string>
+    <string name="error_with_network">No connection with Internet.</string>
 </resources>
