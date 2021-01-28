@@ -3,15 +3,11 @@ package com.example.safejoke.activity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.safejoke.JokeApplication
 import com.example.safejoke.R
 import com.example.safejoke.databinding.ActivityMainBinding
@@ -19,9 +15,11 @@ import com.example.safejoke.domain.Joke
 import com.example.safejoke.model.JokeListAdapter
 import com.example.safejoke.model.JokeViewModel
 import com.example.safejoke.model.JokeViewModelFactory
-import kotlinx.coroutines.launch
 
-
+/**
+ * Main Activity that show all Jokes from Database.
+ * Also allows insert new Joke through [NewJokeActivity]
+ */
 class MainActivity : AppCompatActivity() {
 
     private val newJokeActivityRequestCode = 1
@@ -34,33 +32,26 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        setContentView(R.layout.activity_main)
-//        binding.lifecycleOwner = this
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        setContentView(binding.root)
+        binding.lifecycleOwner = this
 
-
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
         val adapter = JokeListAdapter()
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        binding.recyclerview.adapter = adapter
+        binding.recyclerview.layoutManager = LinearLayoutManager(this)
 
-        jokeViewModel.allJokes.observe(this, Observer { jokes ->
-
+        jokeViewModel.allJokes.observe(this, { jokes ->
             jokes?.let { adapter.submitList(it) }
         })
 
-        val newJokeButton = findViewById<Button>(R.id.add_new_joke_button)
-        newJokeButton.setOnClickListener {
+        binding.addNewJokeButton.setOnClickListener {
             val intent = Intent(this@MainActivity, NewJokeActivity::class.java)
             startActivityForResult(intent, newJokeActivityRequestCode)
         }
 
-        val deleteButton = findViewById<Button>(R.id.clear_jokes)
-        deleteButton.setOnClickListener{
+        binding.deleteJokesButton.setOnClickListener {
             clearJokes()
         }
-
-
     }
 
     private fun clearJokes() {
@@ -72,7 +63,7 @@ class MainActivity : AppCompatActivity() {
 
         if (requestCode == newJokeActivityRequestCode && resultCode == Activity.RESULT_OK) {
             data?.getStringArrayListExtra(NewJokeActivity.EXTRA_REPLY)?.let { newJoke ->
-                val joke = Joke(newJoke.get(0).toString(), newJoke.get(1).toString())
+                val joke = Joke(newJoke[0].toString(), newJoke[1].toString())
                 jokeViewModel.insert(joke)
             }
         } else {

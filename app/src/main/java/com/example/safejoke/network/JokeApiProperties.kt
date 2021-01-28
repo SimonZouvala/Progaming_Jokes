@@ -1,13 +1,11 @@
 package com.example.safejoke.network
 
 import com.example.safejoke.domain.Joke
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
 
-
-data class JokeApiContainer(@Json(name = "") val jokes: List<JokeApiProperties>)
-
-
+/**
+ * This data class defines a JokeAPI property which includes an ID,
+ * the type, the setup and the punchline
+ */
 data class JokeApiProperties(
     val id: Int,
     val type: String,
@@ -15,22 +13,12 @@ data class JokeApiProperties(
     val punchline: String
 )
 
-
-fun JokeApiContainer.asDomainModel(): List<Joke> {
-    return jokes.map {
-        Joke(
-            setup = it.setup,
-            punchline = it.punchline
-        )
-    }
-
-}
-
+/**
+ * Map JokeApiProperties to domain entity
+ */
 fun JokeApiProperties.asDomainModel(): Joke {
     return Joke(
         setup = this.setup,
         punchline = this.punchline
     )
-
-
 }

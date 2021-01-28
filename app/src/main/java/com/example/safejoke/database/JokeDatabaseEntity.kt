@@ -1,20 +1,17 @@
 package com.example.safejoke.database
 
-import androidx.lifecycle.Transformations.map
 import androidx.room.Entity
-import androidx.room.PrimaryKey
 import com.example.safejoke.domain.Joke
 
 /**
- * Database entity, that represent Joke as setup and punchline
+ * Database entity is responsible for reading and writing from the database.
+ *
  */
-@Entity(primaryKeys = arrayOf("setup", "punchline"))
+@Entity(primaryKeys = ["setup", "punchline"])
 data class DatabaseJoke constructor(
     val setup: String,
-    val punchline: String){
-
-}
-
+    val punchline: String
+)
 
 /**
  * Map DatabaseJoke to domain entities
@@ -26,11 +23,4 @@ fun List<DatabaseJoke>.asDomainModel(): List<Joke> {
             punchline = it.punchline
         )
     }
-}
-
-fun DatabaseJoke.asDomainModel(): Joke {
-    return Joke(
-        setup = this.setup,
-        punchline = this.punchline)
-
 }

@@ -1,10 +1,9 @@
 package com.example.safejoke.domain
 
-import androidx.room.PrimaryKey
 import com.example.safejoke.database.DatabaseJoke
 
 /**
- *   Class, that represent Joke as setup and punchline
+ * A basic class representing an entity that is used as object Joke
  */
 data class Joke(
     var setup: String,
@@ -12,21 +11,11 @@ data class Joke(
 )
 
 /**
- *
+ * Map Joke to Database entity
  */
-fun List<Joke>.asDatabaseModel(): List<DatabaseJoke> {
-    return map {
-        DatabaseJoke(
-            setup = it.setup,
-            punchline = it.punchline
-        )
-    }
-}
-
 fun Joke.asDatabaseModel(): DatabaseJoke {
     return DatabaseJoke(
         setup = this.setup,
         punchline = this.punchline
     )
-
 }

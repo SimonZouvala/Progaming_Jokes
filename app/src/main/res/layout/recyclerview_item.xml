@@ -2,6 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+
         <variable
             name="joke"
             type="com.example.safejoke.domain.Joke" />
@@ -18,8 +19,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/gray_light"
-            android:textAlignment="center"
-            android:text="@{joke.setup}"/>
+            android:text="@{joke.setup}"
+            android:textAlignment="center" />
 
         <TextView
             android:id="@+id/text_punchline"
@@ -27,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/gray"
-            android:textAlignment="center"
-            android:text="@{joke.punchline}"/>
+            android:text="@{joke.punchline}"
+            android:textAlignment="center" />
     </LinearLayout>
 </layout>

@@ -1,18 +1,14 @@
 package com.example.safejoke.repository
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import com.example.safejoke.database.DatabaseJoke
 import com.example.safejoke.database.JokeDatabaseDao
-import com.example.safejoke.database.JokeRoomDatabase
 import com.example.safejoke.database.asDomainModel
 import com.example.safejoke.domain.Joke
 import com.example.safejoke.domain.asDatabaseModel
 import com.example.safejoke.network.JokeApi
-import com.example.safejoke.network.JokeApiProperties
 import com.example.safejoke.network.asDomainModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -27,6 +23,10 @@ class JokeRepository(private val jokeDatabaseDao: JokeDatabaseDao) {
             it.asDomainModel()
         }
 
+    /**
+     * Insert new Joke to Database
+     * @param joke the new Joke to insert to Database
+     */
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun insert(joke: Joke) {
@@ -35,6 +35,9 @@ class JokeRepository(private val jokeDatabaseDao: JokeDatabaseDao) {
         }
     }
 
+    /**
+     * Delete all Jokes in Database
+     */
     @SuppressLint("WrongThread")
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
@@ -44,16 +47,18 @@ class JokeRepository(private val jokeDatabaseDao: JokeDatabaseDao) {
         }
     }
 
+    /**
+     * Get new Joke from network.
+     */
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun getNewJoke(): Joke {
-        var newJoke: JokeApiProperties
-        withContext(Dispatchers.IO){
-            newJoke = JokeApi.jokeNetwork.getProperties().get(0)
+        var newJoke: Joke
+        withContext(Dispatchers.IO) {
+            newJoke = JokeApi.jokeNetwork.getProperties()[0].asDomainModel()
         }
-        return Joke(newJoke.setup,newJoke.punchline)
+        return newJoke
     }
-
 
 
 }

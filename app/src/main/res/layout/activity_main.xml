@@ -18,11 +18,11 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/clear_jokes"
+            app:layout_constraintStart_toEndOf="@+id/delete_jokes_button"
             app:layout_constraintTop_toBottomOf="@+id/scrollView3" />
 
         <Button
-            android:id="@+id/clear_jokes"
+            android:id="@+id/delete_jokes_button"
             android:layout_width="150dp"
             android:layout_height="48dp"
             android:layout_marginTop="19dp"

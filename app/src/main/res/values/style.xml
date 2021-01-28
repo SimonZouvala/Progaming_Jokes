@@ -8,10 +8,10 @@
     <style name="joke_punchline">
         <item name="android:layout_marginBottom">8dp</item>
     </style>
-    
+
     <style name="new_joke_add">
         <item name="android:textAlignment">center</item>
         <item name="android:layout_marginTop">16dp</item>
-
     </style>
+
 </resources>

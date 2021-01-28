@@ -9,6 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#989898</color>
     <color name="gray_light">#C5C5C5</color>
-    <color name="sphlashScreenColor">#000000</color>
+    <color name="splashScreenColor">#000000</color>
     <color name="splashScreenColor_text">#DADADA</color>
 </resources>

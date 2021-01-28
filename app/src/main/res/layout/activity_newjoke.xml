@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="joke"
             type="com.example.safejoke.domain.Joke" />
@@ -25,13 +26,13 @@
             android:ems="10"
             android:hint="@string/hint_setup"
             android:inputType="textPersonName"
+            android:text="@={joke.setup}"
             app:layout_constraintBottom_toTopOf="@+id/editPunchline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed"
-            android:text="@={joke.setup}"/>
+            app:layout_constraintVertical_chainStyle="packed" />
 
         <EditText
             android:id="@+id/editPunchline"
@@ -42,13 +43,12 @@
             android:ems="10"
             android:hint="@string/hint_punchline"
             android:inputType="textPersonName"
+            android:text="@={joke.punchline}"
             app:layout_constraintBottom_toTopOf="@+id/safe_joke_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editSetup"
-            android:text="@={joke.punchline}"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/editSetup" />
 
         <Button
             android:id="@+id/safe_joke_button"

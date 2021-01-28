@@ -17,6 +17,10 @@ import com.example.safejoke.model.JokeViewModel
 import com.example.safejoke.model.JokeViewModelFactory
 import kotlinx.coroutines.launch
 
+/**
+ * Activity for write or load new Joke from network.
+ * And also for insert the new Joke to Database and show it in [MainActivity]
+ */
 class NewJokeActivity : AppCompatActivity() {
 
     private var joke: Joke = (Joke("", ""))
@@ -27,6 +31,12 @@ class NewJokeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityNewjokeBinding
 
+    /**
+     * Activity observe two buttons.
+     * One for generate new Joke from network by using [getJoke] and print him to editTexts.
+     * Second for save new Joke and send him and get control back to [MainActivity]
+     * Both using methods from [JokeViewModel].
+     */
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_newjoke)
