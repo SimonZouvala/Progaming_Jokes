@@ -1,4 +1,4 @@
-# Progaming_Jokes
+# Programmer joke store 
 This is mobile application for credit from the subject at UTB Zlín.
 
 The application allows you to store jokes in the phone's memory. Get a joke from the Internet using the [Official Joke API](https://github.com/15Dkatz/official_joke_api). Also allows save joke, that you write, but joke must have setup and punchline.
